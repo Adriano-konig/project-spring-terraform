@@ -28,7 +28,7 @@
 #clone your project from git repository
     git clone https://github.com/Adriano-konig/tutorial-spring-docker-terraform-aws.git
     cd  tutorial-spring-docker-terraform-aws
-    git checkout main
+    git checkout master
     git pull
     cd deploy/docker
 
