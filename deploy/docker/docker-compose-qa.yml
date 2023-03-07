@@ -1,0 +1,49 @@
+version: '3'
+
+services:
+  postgres-db:
+    container_name: postgres-db
+    image: postgres
+    environment:
+      POSTGRES_USER: "admin"
+      POSTGRES_PASSWORD: "admin"
+      POSTGRES_DB: "contactbook"
+      TZ: "America/Sao_Paulo"
+    ports:
+      - "15432:5432"
+    networks:
+      - pg-db-network
+    restart: always
+
+  pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "admin@gmail.com"
+      PGADMIN_DEFAULT_PASSWORD: "admin"
+      TZ: "America/Sao_Paulo"
+    ports:
+      - "16543:80"
+    depends_on:
+      - postgres-db
+    networks:
+      - pg-db-network
+    restart: always
+
+  contact-book-api:
+    container_name: contact-book-api
+    image: contact-book-api2:latest
+    environment:
+      SPRING_PROFILES_ACTIVE: qa
+      TZ: "America/Sao_Paulo"
+    ports:
+      - "80:8090"
+    depends_on:
+      - postgres-db
+    networks:
+      - pg-db-network
+    restart: always
+
+networks:
+  pg-db-network:
+    driver: bridge
