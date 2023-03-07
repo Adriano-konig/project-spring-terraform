@@ -12,7 +12,7 @@ services:
     ports:
       - "15432:5432"
     networks:
-      - pg-db-network
+      - docker-network
     restart: always
 
   pgadmin:
@@ -27,9 +27,9 @@ services:
     depends_on:
       - postgres-db
     networks:
-      - pg-db-network
+      - docker-network
     restart: always
 
 networks:
-  pg-db-network:
+  docker-network:
     driver: bridge

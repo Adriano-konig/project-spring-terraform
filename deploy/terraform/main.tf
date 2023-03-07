@@ -55,6 +55,8 @@ resource "aws_instance" "contact_ec2_3" {
 
   ami = data.aws_ami.contact_ami.id
 
+  user_data = file("userdata.tpl")
+
   root_block_device {
     volume_size = 8
   }
